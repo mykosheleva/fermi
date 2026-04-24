@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VF MGM Dashboard 2026 v3.5 — АУП: 3 чел, урожайность: 26 кг/м², семена: 300 ₽ (17.04.2026)</title>
+<title>VF MGM Dashboard 2026 v3.7 — МГМ база: АУП=3, урожайность=32, семена=300 (17.04.2026)</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -20,7 +20,7 @@
   --r:8px;--rlg:14px;--shadow:0 2px 12px rgba(0,0,0,.07);
 }
 body{font-family:var(--font);background:var(--stone);color:var(--text);font-size:14px;min-height:100vh}
-
+ 
 /* ── HEADER ── */
 .hdr{background:var(--dark);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--dark3)}
 .hdr-in{max-width:1440px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:52px;gap:14px}
@@ -31,7 +31,7 @@ body{font-family:var(--font);background:var(--stone);color:var(--text);font-size
 .logo-s{font-size:11px;color:rgba(255,255,255,.38);margin-left:4px}
 .hbadge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:3px 9px;font-size:11px;color:rgba(255,255,255,.5)}
 .hdate{margin-left:auto;font-size:11px;color:rgba(255,255,255,.3)}
-
+ 
 /* ── VALIDITY BADGE ── */
 .validity-badge{display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid;cursor:default;transition:all .3s}
 .vb-green{background:var(--gp);border-color:var(--g2);color:var(--g1)}
@@ -41,21 +41,21 @@ body{font-family:var(--font);background:var(--stone);color:var(--text);font-size
 .vb-green .vb-dot{background:var(--g2)}
 .vb-yellow .vb-dot{background:var(--a2)}
 .vb-red .vb-dot{background:var(--r2)}
-
+ 
 /* ── NAV ── */
 .nav{background:var(--dark2);border-bottom:1px solid var(--dark3)}
 .nav-in{max-width:1440px;margin:0 auto;padding:0 24px;display:flex}
 .ntab{padding:10px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;font-family:var(--font);white-space:nowrap}
 .ntab:hover{color:rgba(255,255,255,.7)}
 .ntab.active{color:#fff;border-bottom-color:var(--g3)}
-
+ 
 /* ── LAYOUT ── */
 .page{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:310px 1fr;min-height:calc(100vh - 100px)}
 .sb{background:#fff;border-right:1px solid var(--stone3);padding:0;position:sticky;top:100px;height:calc(100vh - 100px);overflow-y:auto}
 .content{padding:24px;overflow:hidden}
 .panel{display:none;animation:fi .2s ease}.panel.active{display:block}
 @keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-
+ 
 /* ── SIDEBAR ── */
 .sbs{border-bottom:1px solid var(--stone3);padding:16px 18px 14px}
 .sbt{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
@@ -68,7 +68,7 @@ body{font-family:var(--font);background:var(--stone);color:var(--text);font-size
 input[type=range]{width:100%;accent-color:var(--g1);cursor:pointer;height:4px;appearance:none;background:var(--stone3);border-radius:2px;outline:none;margin-top:2px}
 input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;background:var(--g1);border-radius:50%;cursor:pointer}
 .rlab{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:2px}
-
+ 
 /* READONLY DERIVED FIELDS */
 .derived-val{background:var(--stone2);border-radius:6px;padding:7px 10px;font-size:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-left:3px solid var(--stone3)}
 .derived-val.ok{border-left-color:var(--g2)}
@@ -76,14 +76,14 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;b
 .derived-val.err{border-left-color:var(--r2);background:var(--rp)}
 .dv-name{color:var(--text3)}
 .dv-val{font-weight:600;font-family:var(--mono);color:var(--text)}
-
+ 
 /* METRIC ROWS in sidebar */
 .sm{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--stone2);font-size:11.5px}
 .sm:last-child{border-bottom:none}
 .sm-n{color:var(--text3)}
 .sm-v{font-weight:600;font-family:var(--mono);color:var(--text)}
 .sm-v.g{color:var(--g1)}.sm-v.a{color:var(--a2)}.sm-v.r{color:var(--r2)}
-
+ 
 /* ── KPI GRID ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .kpi{background:#fff;border-radius:var(--rlg);padding:16px 18px;border:1px solid var(--stone3);box-shadow:var(--shadow)}
@@ -95,7 +95,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;b
 .kpi-sub{font-size:11px;color:var(--text3);margin-top:4px}
 .kpi-delta{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:500;margin-top:4px}
 .dp{background:var(--gp);color:var(--g1)}.dn{background:var(--rp);color:var(--r1)}.dn2{background:var(--ap);color:var(--a1)}.d0{background:var(--stone2);color:var(--text3)}
-
+ 
 /* ── CARDS / TABLES ── */
 .card{background:#fff;border-radius:var(--rlg);padding:18px 20px;border:1px solid var(--stone3);box-shadow:var(--shadow);margin-bottom:16px}
 .card-t{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:7px}
@@ -123,7 +123,7 @@ td.r{color:var(--r2)}
 .fg{background:var(--gp);border-color:var(--g2)}
 .fa{background:var(--ap);border-color:var(--a2)}
 .fr{background:var(--rp);border-color:var(--r2)}
-
+ 
 /* VALIDITY PANEL */
 .val-grid{display:flex;flex-direction:column;gap:6px}
 .vcheck{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:var(--r);font-size:12px;border:1px solid}
@@ -136,7 +136,7 @@ td.r{color:var(--r2)}
 .vc-detail{margin-top:2px;opacity:.8;font-size:11px}
 .reset-btn{width:100%;padding:8px;border:1px solid var(--stone3);background:var(--stone);border-radius:6px;font-size:12px;color:var(--text3);cursor:pointer;transition:all .15s;font-family:var(--font);margin-top:4px}
 .reset-btn:hover{background:var(--rp);color:var(--r2);border-color:var(--r2)}
-
+ 
 /* Opex waterfall */
 .opex-bar{height:18px;border-radius:3px;position:relative;overflow:hidden;background:var(--stone2);margin-bottom:5px}
 .opex-fill{height:100%;border-radius:3px;transition:width .5s ease}
@@ -144,13 +144,13 @@ td.r{color:var(--r2)}
 .opex-name{width:200px;flex-shrink:0;color:var(--text2)}
 .opex-track{flex:1;height:16px;background:var(--stone2);border-radius:3px;overflow:hidden;position:relative}
 .opex-val{width:90px;text-align:right;font-family:var(--mono);font-size:11px;color:var(--text3)}
-
+ 
 @media(max-width:1100px){.page{grid-template-columns:1fr}.sb{position:static;height:auto}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.kpi-grid{grid-template-columns:1fr}.g2,.g3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
+ 
 <header class="hdr">
   <div class="hdr-in">
     <a class="logo" href="#">
@@ -167,7 +167,7 @@ td.r{color:var(--r2)}
     <span class="hdate" style="margin-left:auto">Март 2026</span>
   </div>
 </header>
-
+ 
 <nav class="nav">
   <div class="nav-in">
     <button class="ntab active" onclick="switchTab('main',this)">Обзор</button>
@@ -177,28 +177,28 @@ td.r{color:var(--r2)}
     <button class="ntab" onclick="switchTab('validity',this)">Проверка модели</button>
   </div>
 </nav>
-
+ 
 <div class="page">
 <!-- ════ SIDEBAR ════ -->
 <aside class="sb">
-
+ 
   <!-- GEOMETRY — INPUTS -->
   <div class="sbs">
     <div class="sbt"><span class="sbt-dot"></span>Входные параметры фермы</div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Площадь пола (общая), м²</span><span class="pv" id="sv-area">376</span></div>
       <input type="range" id="sl-area" min="200" max="2000" step="10" value="376" oninput="onInput('area')">
       <div class="rlab"><span>200</span><span>2 000 м²</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Ярусов на стеллаже</span><span class="pv" id="sv-tiers">7</span></div>
       <input type="range" id="sl-tiers" min="4" max="16" step="1" value="7" oninput="onInput('tiers')">
       <div class="rlab"><span>4</span><span style="font-size:10px;color:var(--text3)">МГМ: 7 яр. → 1 302 м² вырщ.</span><span>16 ярусов</span></div>
       <div style="font-size:10px;color:var(--text3);margin-top:2px">Площадь вырщ. = пол × 50% × <b>ярусов</b> = 376 × 0,5 × 7 = 1 316 м²</div>
     </div>
-
+ 
     <!-- DERIVED (calculated from inputs) -->
     <div class="derived-val ok" id="dv-growfloor">
       <span class="dv-name">Площадь выращивания по полу</span>
@@ -213,27 +213,27 @@ td.r{color:var(--r2)}
       <span class="dv-val" id="dv-shelves-v">1 321 шт.</span>
     </div>
   </div>
-
+ 
   <!-- YIELD + LOAD — TOP SECTION, ALWAYS VISIBLE -->
   <div class="sbs" style="background:#f0fdf4;border-bottom:2px solid #bbf7d0">
     <div class="sbt" style="color:#166534"><span class="sbt-dot" style="background:#16a34a"></span>Производительность и загрузка</div>
-
+ 
     <div class="pr">
       <div class="pl">
         <span style="font-weight:600;color:#166534">Урожайность, кг/м² вырщ./год</span>
-        <span class="pv" id="sv-yield" style="background:#dcfce7;color:#166534">26,0</span>
+        <span class="pv" id="sv-yield" style="background:#dcfce7;color:#166534">32,0</span>
       </div>
-      <input type="range" id="sl-yield" min="10" max="200" step="0.5" value="26" oninput="onInput('yield')" style="accent-color:#16a34a">
+      <input type="range" id="sl-yield" min="10" max="200" step="0.5" value="32" oninput="onInput('yield')" style="accent-color:#16a34a">
       <div class="rlab">
         <span>10</span>
-        <span style="font-size:10px;color:#16a34a;font-weight:500">МГМ: 26 кг/м²/год</span>
+        <span style="font-size:10px;color:#16a34a;font-weight:500">МГМ: 32 кг/м²/год</span>
         <span>200</span>
       </div>
       <div style="font-size:10.5px;color:var(--text3);margin-top:4px">
         → кг/мес 100%: <strong id="sv-cap100">—</strong> · кг/полку/мес: <strong id="sv-kgshelf">—</strong>
       </div>
     </div>
-
+ 
     <div class="pr" style="margin-bottom:0">
       <div class="pl">
         <span style="font-weight:600;color:#166534">Загрузка мощности, %</span>
@@ -243,89 +243,89 @@ td.r{color:var(--r2)}
       <div class="rlab"><span>10%</span><span style="font-size:10px;color:#16a34a;font-weight:500">Модель МГМ: 90%</span><span>100%</span></div>
     </div>
   </div>
-
+ 
   <!-- ECONOMICS / CAPEX -->
   <div class="sbs">
     <div class="sbt"><span class="sbt-dot" style="background:var(--a2)"></span>Инвестиции и экономика</div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Инвестиции, ₽/м² выращивания</span><span class="pv" id="sv-capexm2" >44 000</span></div>
       <input type="range" id="sl-capexm2" min="10000" max="120000" step="1000" value="44000" oninput="onInput('capexm2')">
       <div class="rlab"><span>10 тыс.</span><span style="font-size:10px;color:var(--text3)" id="rl-capex-hint">Модель: 44 000</span><span>120 тыс.</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Аренда, ₽/м² пола/мес</span><span class="pv" id="sv-rent">451,39</span></div>
       <input type="range" id="sl-rent" min="100" max="1200" step="10" value="451" oninput="onInput('rent')">
       <div class="rlab"><span>100</span><span style="font-size:10px;color:var(--text3)">Модель: 451,39</span><span>1 200</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Цена продажи (HoReCa), ₽/кг С НДС 10%</span><span class="pv" id="sv-price">1 800</span></div>
       <input type="range" id="sl-price" min="600" max="5000" step="50" value="1800" oninput="onInput('price')">
       <div class="rlab"><span>600</span><span style="font-size:10px;color:var(--text3)">Модель: 1 800 (с НДС 10%)</span><span>5 000</span></div>
     </div>
   </div>
-
+ 
   <!-- ENERGY -->
   <div class="sbs">
     <div class="sbt"><span class="sbt-dot" style="background:var(--a2)"></span>Электроэнергия</div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Тариф, ₽/кВт·ч С НДС 22%</span><span class="pv" id="sv-elec">9,00</span></div>
       <input type="range" id="sl-elec" min="2" max="15" step="0.1" value="9.0" oninput="onInput('elec')">
       <div class="rlab"><span>2 ₽</span><span style="font-size:10px;color:var(--text3)">Модель: 9,00 (с НДС)</span><span>15 ₽</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Потребление, кВт·ч/м² выращ./мес</span><span class="pv" id="sv-kwm2">56,8</span></div>
       <input type="range" id="sl-kwm2" min="20" max="200" step="1" value="56.8" oninput="onInput('kwm2')">
       <div class="rlab"><span>20</span><span style="font-size:10px;color:var(--text3)">Модель: 56,8 кВт·ч/м²</span><span>200</span></div>
     </div>
   </div>
-
+ 
   <!-- STAFF -->
   <div class="sbs">
     <div class="sbt"><span class="sbt-dot" style="background:var(--b2)"></span>Персонал</div>
-
+ 
     <div class="pr">
       <div class="pl"><span>АУП, чел.</span><span class="pv" id="sv-aup">3</span></div>
       <input type="range" id="sl-aup" min="1" max="20" step="1" value="3" oninput="onInput('aup')">
       <div class="rlab"><span>1</span><span style="font-size:10px;color:var(--text3)">Модель: 3</span><span>20</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Ср. зарплата АУП, ₽/мес</span><span class="pv" id="sv-aup-sal">118 764</span></div>
       <input type="range" id="sl-aup-sal" min="50000" max="300000" step="5000" value="118764" oninput="onInput('aup-sal')">
       <div class="rlab"><span>50 тыс.</span><span style="font-size:10px;color:var(--text3)">Модель: 118 764</span><span>300 тыс.</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Операторы, чел.</span><span class="pv" id="sv-ops">8</span></div>
       <input type="range" id="sl-ops" min="1" max="30" step="1" value="8" oninput="onInput('ops')">
       <div class="rlab"><span>1</span><span style="font-size:10px;color:var(--text3)">Модель: 8</span><span>30</span></div>
     </div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Ср. зарплата операторов, ₽/мес</span><span class="pv" id="sv-ops-sal">82 756</span></div>
       <input type="range" id="sl-ops-sal" min="30000" max="200000" step="5000" value="82756" oninput="onInput('ops-sal')">
       <div class="rlab"><span>30 тыс.</span><span style="font-size:10px;color:var(--text3)">Модель: 82 756</span><span>200 тыс.</span></div>
     </div>
-
+ 
     <div style="font-size:11px;color:var(--text3);padding:4px 2px 0">Налоги на ФОТ: <strong style="color:var(--text)">30,7%</strong> (фикс.)</div>
   </div>
-
+ 
   <!-- SEEDS & PACKAGING -->
   <div class="sbs">
     <div class="sbt"><span class="sbt-dot" style="background:#15803d"></span>Семена и упаковка</div>
-
+ 
     <div class="pr">
       <div class="pl"><span>Семена+субстрат, ₽/полку/цикл С НДС 22%</span><span class="pv" id="sv-seeds">300</span></div>
       <input type="range" id="sl-seeds" min="50" max="1500" step="10" value="300" oninput="onInput('seeds')">
       <div class="rlab"><span>50</span><span style="font-size:10px;color:var(--text3)">МГМ: 300 ₽/полку (с НДС)</span><span>1 500</span></div>
       <div style="font-size:10px;color:var(--text3);margin-top:2px">Диапазон по культурам: 213 (Пак-Чой) — 300 (оптимизированно) ₽/полку</div>
     </div>
-
+ 
     <div class="pr" style="margin-bottom:0">
       <div class="pl"><span>Упаковка, ₽/кг С НДС 22%</span><span class="pv" id="sv-pack">60</span></div>
       <input type="range" id="sl-pack" min="5" max="300" step="1" value="59.8" oninput="onInput('pack')">
@@ -333,16 +333,16 @@ td.r{color:var(--r2)}
       <div style="font-size:10px;color:var(--text3);margin-top:2px">Магазин 125г: ~166 ₽/кг · HoReCa 250г: ~49 ₽/кг</div>
     </div>
   </div>
-
+ 
   <!-- RESET -->
   <div class="sbs" style="border-bottom:none">
     <button class="reset-btn" onclick="resetAll()">↩ Сбросить к параметрам модели МГМ</button>
   </div>
 </aside>
-
+ 
 <!-- ════ CONTENT ════ -->
 <div class="content">
-
+ 
 <!-- KPI -->
 <div class="kpi-grid" id="kpi-area">
   <div class="kpi"><div class="kpi-lbl">Себестоимость 1 кг</div><div class="kpi-val"><strong id="k-cogs">—</strong> ₽</div><div class="kpi-sub" id="k-cogs-s">—</div><div class="kpi-delta d0" id="k-cogs-d">—</div></div>
@@ -350,7 +350,7 @@ td.r{color:var(--r2)}
   <div class="kpi"><div class="kpi-lbl">ФОТ в месяц</div><div class="kpi-val"><strong id="k-fot">—</strong></div><div class="kpi-sub" id="k-fot-s">—</div><div class="kpi-delta d0" id="k-fot-d">—</div></div>
   <div class="kpi"><div class="kpi-lbl">Мощность (100%) кг/мес</div><div class="kpi-val"><strong id="k-cap">—</strong></div><div class="kpi-sub" id="k-cap-s">—</div><div class="kpi-delta d0" id="k-cap-d">—</div></div>
 </div>
-
+ 
 <!-- ════ TAB MAIN ════ -->
 <div id="tab-main" class="panel active">
   <div class="g2">
@@ -363,7 +363,7 @@ td.r{color:var(--r2)}
       <div id="capex-metrics"></div>
     </div>
   </div>
-
+ 
   <div class="card">
     <div class="card-t"><span class="dot" style="background:var(--b2)"></span>Структура OPEX при текущей загрузке</div>
     <div class="g2" style="margin-bottom:0">
@@ -371,7 +371,7 @@ td.r{color:var(--r2)}
       <div class="chart-ws"><canvas id="opex-donut"></canvas></div>
     </div>
   </div>
-
+ 
   <div class="g2">
     <div class="card">
       <div class="card-t"><span class="dot"></span>EBITDA при разных уровнях загрузки</div>
@@ -384,7 +384,7 @@ td.r{color:var(--r2)}
     </div>
   </div>
 </div>
-
+ 
 <!-- ════ TAB OPEX ════ -->
 <div id="tab-opex" class="panel">
   <div class="card">
@@ -396,7 +396,7 @@ td.r{color:var(--r2)}
       </table>
     </div>
   </div>
-
+ 
   <div class="g2">
     <div class="card">
       <div class="card-t"><span class="dot"></span>FC vs VC — структура затрат</div>
@@ -408,10 +408,10 @@ td.r{color:var(--r2)}
     </div>
   </div>
 </div>
-
+ 
 <!-- ════ TAB BEP ════ -->
 <div id="tab-bep" class="panel">
-
+ 
   <!-- PAYBACK — cumulative cash flow -->
   <div class="card">
     <div class="card-t"><span class="dot" style="background:var(--g2)"></span>Окупаемость проекта — накопленный денежный поток (CAPEX + EBITDA)</div>
@@ -421,13 +421,13 @@ td.r{color:var(--r2)}
       М1–М6: инвестиционная фаза (CAPEX равномерно). М7–М12: операционная. Год 2+: 90% загрузка. Точка окупаемости — пересечение нулевой линии.
     </div>
   </div>
-
+ 
   <div class="card">
     <div class="card-t"><span class="dot"></span>Тепловая матрица EBITDA (тыс. ₽/мес)</div>
     <div style="overflow-x:auto" id="heat-wrap"></div>
     <div style="display:flex;gap:10px;margin-top:10px;font-size:11px;flex-wrap:wrap" id="heat-legend"></div>
   </div>
-
+ 
   <div class="g2">
     <div class="card">
       <div class="card-t"><span class="dot"></span>EBITDA при разных ценах (текущая загрузка)</div>
@@ -439,7 +439,7 @@ td.r{color:var(--r2)}
     </div>
   </div>
 </div>
-
+ 
 <!-- ════ TAB CULTURES ════ -->
 <div id="tab-cultures" class="panel">
   <div class="card">
@@ -451,7 +451,7 @@ td.r{color:var(--r2)}
       </table>
     </div>
   </div>
-
+ 
   <div class="g2">
     <div class="card">
       <div class="card-t"><span class="dot"></span>Себестоимость vs Цена HoReCa</div>
@@ -463,14 +463,14 @@ td.r{color:var(--r2)}
     </div>
   </div>
 </div>
-
+ 
 <!-- ════ TAB VALIDITY ════ -->
 <div id="tab-validity" class="panel">
   <div class="card">
     <div class="card-t"><span class="dot"></span>Светофор корректности — проверка параметров относительно финмодели МГМ</div>
     <div id="validity-checks"></div>
   </div>
-
+ 
   <div class="card">
     <div class="card-t"><span class="dot" style="background:var(--b2)"></span>Допустимые диапазоны параметров (из финмодели МГМ)</div>
     <div class="tw">
@@ -481,10 +481,10 @@ td.r{color:var(--r2)}
     </div>
   </div>
 </div>
-
+ 
 </div><!-- /content -->
 </div><!-- /page -->
-
+ 
 <script>
 // ════════════════════════════════════════════════════════════════════
 //  ФИНМОДЕЛЬ МГМ — БАЗОВЫЕ ПАРАМЕТРЫ (обновлено 2026-03-25)
@@ -504,11 +504,11 @@ const MGM = {
   // shelfDensity убран — его роль теперь у tiers
   tiers:            7,          // ярусов на стеллаже (376×0.5×7 / 0.72 ≈ 1 819 полок ≈ 1 810)
   shelfM2:          0.72,       // м² одна полка NFT
-
+ 
   // Целевые значения геометрии (для проверки):
   targetGrowShelves: 1302,      // м² выращивания по полкам
   targetShelves:     1810,      // кол-во полок NFT
-
+ 
   // ── CAPEX ─────────────────────────────────────────────────────────
   capexPerM2Grow:   44000,      // ₽/м² площади выращивания (оборудование, без НДС)
   designPerM2Floor: 1000,       // ₽/м² пола (проектирование, без НДС)
@@ -519,35 +519,36 @@ const MGM = {
   mebel_per_m2:     300,        // ₽/м² выращивания
   ventilation:      12000000,
   amortRate:        0.10,       // 10%/год
-
+ 
   // ── OPEX — Аренда (FC) ────────────────────────────────────────────
   // ЦЕНА С НДС 22%. В расчёт идёт полная сумма (ЕСХН не является плательщиком НДС,
   // входящий НДС по аренде не возмещается → включается в затраты)
   rent_per_m2_floor_month: 451.39, // ₽/м² пола/мес С НДС 22%
-
+ 
   // ── Электроэнергия ────────────────────────────────────────────────
   // ЦЕНА С НДС 22%
   elecTariff:       9.0,        // ₽/кВт·ч С НДС 22% (7,38 без НДС × 1,22)
   elecPerM2Grow:    56.8,       // кВт·ч/м² выращивания/мес
-
+ 
   // ── ФОТ ───────────────────────────────────────────────────────────
-  aupCount:         3,
+  // МГМ v3.5: оптимизированная структура персонала
+  aupCount:         3,          // чел. (управленческий персонал)
   aupSalaryGross:   118764,     // ₽/мес gross (без НДФЛ, без страховых)
   opsCount:         8,
   opsSalaryGross:   82756,
   fotTaxRate:       0.307,      // 30,7% налоги на ФОТ (НДФЛ+страховые)
-
+ 
   // ── Переменные затраты (С НДС 22%) ───────────────────────────────
   fertPerM2:        36.6,       // ₽/м²/мес С НДС (30 × 1.22)
   sizPerM2:         12.2,       // ₽/м²/мес С НДС (10 × 1.22)
-  // Семена+субстрат С НДС 22% (базовое среднее по культурам)
+  // Семена+субстрат С НДС 22% (базовое оптимизированное значение)
   seedsPerShelf:    300,        // ₽/полку/цикл С НДС (246 × 1.22)
   // Упаковка С НДС 22%
   packPerKg:        59.8,       // ₽/кг С НДС (49 × 1.22)
-
+ 
   // ── Расписание загрузки ───────────────────────────────────────────
   launchSchedule: [0, 0, 0, 0, 0, 0, 0.30, 0.70, 0.90, 0.90, 0.90, 0.90],
-
+ 
   // ── Ценообразование (выручка С НДС 10%) ──────────────────────────
   // НДС на с/х продукцию = 10% (льготная ставка)
   vatSales:         0.10,       // НДС исходящий 10% (с/х)
@@ -556,18 +557,18 @@ const MGM = {
   // Базовые цены из МГМ (без НДС) × 1.10:
   avgPriceHoreca:   1800,       // ₽/кг С НДС 10% (1 636 × 1.10 ≈ 1 800)
   avgPriceStore:    1800,
-
+ 
   // ── Налоги ────────────────────────────────────────────────────────
   incomeTaxRate:    0.06,       // ЕСХН 6%
   discountRate:     0.25,
-
+ 
   // ── Урожайность (базовая) ─────────────────────────────────────────
   // 376 м² × 50% × 7 ярусов = 1 316 м² выращ.; при 90%: cap = 1316 × 26/12 × 0.9 ≈ 2 566 кг
-  // База МГМ: 26 кг/м²/год (по площади выращивания, при 100% загрузке)
-  yieldM2yearBase:  26,         // кг/м² выращивания/год @ 100% загрузки
+  // База МГМ: 32 кг/м²/год (плановая урожайность по площади выращивания, при 100% загрузке)
+  yieldM2yearBase:  32,         // кг/м² выращивания/год @ 100% загрузки
 };
-
-
+ 
+ 
 // Данные по культурам из финмодели
 const CULTURES = [
   {name:"Айсберг (Фриллис)", days:30, kgShelf:2.5, seedPerShelf:698.3, priceH:1800, priceS:1800, share:0.125},
@@ -579,7 +580,7 @@ const CULTURES = [
   {name:"Романо",             days:30, kgShelf:2.5, seedPerShelf:698.3, priceH:1800, priceS:2200, share:0.125},
   {name:"Щавель красный",     days:30, kgShelf:2.5, seedPerShelf:643.4, priceH:2000, priceS:2800, share:0.125},
 ];
-
+ 
 // ── Текущие параметры (входные — изменяются слайдерами) ─────────────
 let P = {
   area:          MGM.areaFloor,               // м² пола (ВХОД)
@@ -598,15 +599,15 @@ let P = {
   ops:           MGM.opsCount,
   opsSal:        MGM.opsSalaryGross,
 };
-
+ 
 let charts = {};
-
+ 
 // Helpers declared early so calc() can use fmtN in seedsFormula
 function fmtN(n) { return (n == null || isNaN(n)) ? '—' : Math.round(n).toLocaleString('ru-RU'); }
 function fmtM(n) { return (n == null || isNaN(n)) ? '—' : (n / 1e6).toFixed(2) + ' млн ₽'; }
 function fmtPct(n) { return (n == null || isNaN(n)) ? '—' : Math.round(n) + '%'; }
-
-
+ 
+ 
 //  Геометрия: growShelves = growFloor × tiers  (ярусы = множитель)
 //  НДС: все цены входные С НДС; выручка С НДС 10% (с/х льгота)
 //  FCF = EBITDA после уплаты налогов − CAPEX; вычитается НДС к возмещению
@@ -615,7 +616,7 @@ function calc(overrideLoad) {
   const area    = P.area;
   const tiers   = P.tiers;
   const loadPct = overrideLoad !== undefined ? overrideLoad : P.load;
-
+ 
   // ── 1. ГЕОМЕТРИЯ ─────────────────────────────────────────────────
   // growFloor = зона выращивания по полу (50% от пола)
   const growFloor   = area * MGM.growFloorRatio;
@@ -623,7 +624,7 @@ function calc(overrideLoad) {
   // (каждый ярус добавляет полную площадь growFloor)
   const growShelves = growFloor * tiers;
   const shelves     = Math.round(growShelves / MGM.shelfM2);
-
+ 
   // ── 2. МОЩНОСТЬ через урожайность ────────────────────────────────
   // cap100 = yieldM2year × growShelves / 12  (кг/мес при 100%)
   const cap100     = Math.round(P.yieldM2year * growShelves / 12);
@@ -631,7 +632,7 @@ function calc(overrideLoad) {
   const capAct     = Math.round(cap100 * loadFactor);
   const kgPerShelfMonthDerived = shelves > 0 ? +(cap100 / shelves).toFixed(3) : 0;
   const yieldActual = growShelves > 0 ? Math.round(capAct * 12 / growShelves * 10) / 10 : 0;
-
+ 
   // ── 3. CAPEX & АМОРТИЗАЦИЯ ───────────────────────────────────────
   const capexEquip  = P.capexm2 * growShelves;
   const capexDesign = MGM.designPerM2Floor * area;
@@ -641,24 +642,24 @@ function calc(overrideLoad) {
   const capexTotal  = capexEquip + capexDesign + capexExtra;
   const amortMonth  = Math.round(capexTotal * MGM.amortRate / 12);
   const capexPerM2grow = growShelves > 0 ? Math.round(capexTotal / growShelves) : 0;
-
+ 
   // ── 4. FC — АРЕНДА (С НДС 22%, постоянная) ───────────────────────
   const rentMonth = Math.round(area * P.rent);
-
+ 
   // ── 5. ФОТ (БЕЗ НДС; АУП = квазипост.; операторы = переменный) ──
   const fotAUPBase = Math.round(P.aup  * P.aupSal * (1 + MGM.fotTaxRate));
   const fotOpsBase = Math.round(P.ops  * P.opsSal * (1 + MGM.fotTaxRate));
   const fotOps     = Math.round(fotOpsBase * loadFactor);
   const fotTotal   = fotAUPBase + fotOps;
-
+ 
   // ── 6. ЭЛЕКТРОЭНЕРГИЯ (С НДС 22%, переменная по загрузке) ────────
   const elecBase   = Math.round(P.kwm2 * P.elec * growShelves);  // при 100%
   const elecMonth  = Math.round(elecBase * loadFactor);
-
+ 
   // ── 7. ПЕРЕМЕННЫЕ ЗАТРАТЫ (С НДС 22%) ────────────────────────────
   const fertMonth  = Math.round(MGM.fertPerM2 * growShelves * loadFactor);
   const sizMonth   = Math.round(MGM.sizPerM2  * growShelves * loadFactor);
-
+ 
   // СЕМЕНА + СУБСТРАТ:
   // Формула: Расходы = P.seedsPerShelf [₽/полку/цикл, С НДС] × кол-во полок × оборотов в мес × загрузка
   // Оборотов/мес = 30 / средн.цикл_дней = 30/26 ≈ 1.154
@@ -667,30 +668,30 @@ function calc(overrideLoad) {
   const seedsMonth = Math.round(P.seedsPerShelf * shelves * avgTurns * loadFactor);
   // seedsFormula — строка для отображения в OPEX-таблице
   const seedsFormula = `${fmtN(P.seedsPerShelf)} ₽/п × ${fmtN(shelves)} п × ${avgTurns.toFixed(3)} об/мес × ${loadPct}% загр.`;
-
+ 
   // УПАКОВКА (С НДС 22%):
   const packMonth  = Math.round(P.packPerKg * capAct);
-
+ 
   // ── 8. OPEX ИТОГО ────────────────────────────────────────────────
   const opexFC     = rentMonth;                // Только аренда = строгий FC
   const opexVC     = fotTotal + elecMonth + fertMonth + sizMonth + seedsMonth + packMonth;
   const opexTotal  = opexFC + opexVC;
-
+ 
   // ── 9. ВЫРУЧКА (С НДС 10%) ───────────────────────────────────────
   const revenueMonth    = Math.round(capAct * P.price);          // С НДС 10%
   const revenueExVAT    = Math.round(revenueMonth / (1 + MGM.vatSales)); // без НДС
-
+ 
   // ── 10. EBITDA ────────────────────────────────────────────────────
   // EBITDA считается по ценам С НДС (так как входящий НДС не возмещается при ЕСХН)
   const ebitdaMonth  = revenueMonth - opexTotal;
   const ebitdaPct    = revenueMonth > 0 ? Math.round(ebitdaMonth / revenueMonth * 100) : 0;
-
+ 
   // ── 11. НАЛОГ ЕСХН (6% от прибыли) ──────────────────────────────
   // База ЕСХН = выручка без НДС − расходы
   // Расходы без НДС (НДС входящий не вычитается, включается в расходы при ЕСХН)
   const profitForTax   = Math.max(0, revenueExVAT - opexTotal);
   const incomeTax      = Math.round(profitForTax * MGM.incomeTaxRate);
-
+ 
   // ── 12. FCF — СВОБОДНЫЙ ДЕНЕЖНЫЙ ПОТОК ───────────────────────────
   // FCF = EBITDA − Налог ЕСХН − Амортизация (не кэш, добавляем обратно) + Амортизация
   //     = EBITDA − Налог ЕСХН (амортизация нейтральна для кэша)
@@ -698,16 +699,16 @@ function calc(overrideLoad) {
   // При ЕСХН с оборотом ≤ 60 млн — освобождение от НДС, т.е. НДС не получаем и не платим
   // Поэтому FCF = EBITDA − incomeTax
   const fcfMonth = ebitdaMonth - incomeTax;
-
+ 
   // ── 13. BEP ──────────────────────────────────────────────────────
   const vcPerKg = capAct > 0 ? Math.round((opexVC - fotAUPBase) / capAct * 10) / 10 : 0;
   const cm      = P.price - vcPerKg;
   const bepKg   = cm > 0 ? Math.round((rentMonth + fotAUPBase) / cm) : null;
   const bepPct  = bepKg && cap100 > 0 ? Math.round(bepKg / cap100 * 100) : null;
-
+ 
   // ── 14. COGS ─────────────────────────────────────────────────────
   const cogsPerKg = capAct > 0 ? Math.round((opexTotal + amortMonth) / capAct) : 0;
-
+ 
   return {
     area, tiers, growFloor, growShelves, shelves,
     cap100, capAct, loadFactor, loadPct,
@@ -725,7 +726,7 @@ function calc(overrideLoad) {
     vcPerKg, cm, bepKg, bepPct, cogsPerKg,
   };
 }
-
+ 
 // ════════════════════════════════════════════════════════════════════
 //  VALIDITY CHECKS
 // ════════════════════════════════════════════════════════════════════
@@ -741,7 +742,7 @@ function getValidityChecks(D) {
   const addCond = (name, val, status, unit, detail) => {
     checks.push({ name, val, ref: val, dev: 0, status, unit, detail });
   };
-
+ 
   add('Площадь пола', P.area, MGM.areaFloor, 5,
     'м²', 'МГМ: 376 м² (целевое: 376 м²)');
   add('Ярусов на стеллаже', P.tiers, MGM.tiers, 0,
@@ -762,12 +763,12 @@ function getValidityChecks(D) {
     '₽/полку', 'МГМ: ' + MGM.seedsPerShelf.toFixed(1) + ' ₽/полку/цикл с НДС 22%');
   add('Упаковка ₽/кг (с НДС)', P.packPerKg, MGM.packPerKg, 30,
     '₽/кг', 'МГМ: ' + MGM.packPerKg.toFixed(1) + ' ₽/кг с НДС 22%');
-
+ 
   // ФОТ
   const fotMGM = (MGM.aupCount * MGM.aupSalaryGross + MGM.opsCount * MGM.opsSalaryGross) * (1 + MGM.fotTaxRate);
   add('ФОТ итого (при 100%, без НДС)', D.fotAUPBase + Math.round(P.ops * P.opsSal * (1 + MGM.fotTaxRate)), fotMGM, 25,
     '₽', 'ФОТ без НДС: АУП + операторы × 1,307 налоги');
-
+ 
   // BEP
   const bepLoad = D.bepPct !== null ? D.bepPct : 100;
   const loadPct = P.load;
@@ -784,7 +785,7 @@ function getValidityChecks(D) {
       loadPct, 'green', '%',
       `Ферма прибыльна. Запас: +${loadPct - bepLoad} п.п. над BEP (${fmtN(D.bepKg)} кг/мес).`);
   }
-
+ 
   // EBITDA / FCF check
   if (D.ebitdaMonth < 0) {
     addCond('EBITDA отрицательный', D.ebitdaMonth, 'red', '₽/мес',
@@ -796,20 +797,20 @@ function getValidityChecks(D) {
     addCond('EBITDA-маржа в норме', D.ebitdaPct, 'green', '%',
       `Маржа ${D.ebitdaPct}% при загрузке ${loadPct}%. FCF: ${fmtN(D.fcfMonth)} ₽/мес (после ЕСХН 6%).`);
   }
-
+ 
   return checks;
 }
-
+ 
 function overallStatus(checks) {
   if (checks.some(c => c.status === 'red')) return 'red';
   if (checks.some(c => c.status === 'yellow')) return 'yellow';
   return 'green';
 }
-
+ 
 // ════════════════════════════════════════════════════════════════════
 //  RENDER FUNCTIONS
 // ════════════════════════════════════════════════════════════════════
-
+ 
 function renderAll() {
   const D = calc();
   updateSliderDisplays(D);
@@ -821,7 +822,7 @@ function renderAll() {
   // Charts updated lazily on tab switch or here if visible
   renderActiveTabCharts(D);
 }
-
+ 
 function updateSliderDisplays(D) {
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
   set('sv-area',    fmtN(P.area));
@@ -843,7 +844,7 @@ function updateSliderDisplays(D) {
   set('sv-aup-sal', fmtN(P.aupSal));
   set('sv-ops',     P.ops);
   set('sv-ops-sal', fmtN(P.opsSal));
-
+ 
   // Derived readonly fields
   const dv = (id, val, status='ok') => {
     document.getElementById(id).className = `derived-val ${status}`;
@@ -852,7 +853,7 @@ function updateSliderDisplays(D) {
   dv('dv-growfloor',   fmtN(D.growFloor) + ' м²');
   dv('dv-growshelves', fmtN(D.growShelves) + ' м²');
   dv('dv-shelves',     fmtN(D.shelves) + ' шт.');
-
+ 
   // Colour-code sliders vs MGM baseline
   const devClass = (val, ref, tol) => {
     const d = ref ? Math.abs((val - ref) / ref) * 100 : 0;
@@ -873,7 +874,7 @@ function updateSliderDisplays(D) {
   colorPv('sv-seeds',   P.seedsPerShelf, MGM.seedsPerShelf,     25);
   colorPv('sv-pack',    P.packPerKg,     MGM.packPerKg,         30);
 }
-
+ 
 function updateKPIs(D) {
   const basD = calcBase();
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
@@ -885,25 +886,25 @@ function updateKPIs(D) {
     el.textContent = (diff > 0 ? '+' : '') + fmtN(diff) + ' vs модель';
     el.className = 'kpi-delta ' + (Math.abs(diff) < 100 ? 'd0' : good ? 'dp' : 'dn');
   };
-
+ 
   set('k-cogs', fmtN(D.cogsPerKg));
   set('k-cogs-s', 'с амортизацией · ' + fmtN(D.capAct) + ' кг/мес');
   delta('k-cogs-d', D.cogsPerKg - basD.cogsPerKg, true);
-
+ 
   set('k-ebitda', fmtN(D.ebitdaMonth));
   set('k-ebitda-s', 'маржа ' + fmtPct(D.ebitdaPct) + ' · цена ' + fmtN(P.price) + ' ₽/кг');
   document.getElementById('k-ebitda-wrap').className = 'kpi-val' + (D.ebitdaMonth < 0 ? ' err' : '');
   delta('k-ebitda-d', D.ebitdaMonth - basD.ebitdaMonth);
-
+ 
   set('k-fot',   fmtN(D.fotTotal));
   set('k-fot-s', `АУП: ${fmtN(D.fotAUPBase)} + Опер: ${fmtN(D.fotOps)}`);
   delta('k-fot-d', D.fotTotal - basD.fotTotal, true);
-
+ 
   set('k-cap',   fmtN(D.cap100));
   set('k-cap-s', fmtN(D.capAct) + ' кг/мес при ' + P.load + '% · ' + D.yieldActual + ' кг/м²/год факт');
   delta('k-cap-d', D.cap100 - basD.cap100);
 }
-
+ 
 function calcBase() {
   const save = {...P};
   P = {
@@ -927,7 +928,7 @@ function calcBase() {
   P = save;
   return d;
 }
-
+ 
 function updateGeoMetrics(D) {
   const el = document.getElementById('geo-metrics');
   el.innerHTML = [
@@ -942,7 +943,7 @@ function updateGeoMetrics(D) {
     ['кг/полку/мес (производное)', D.kgPerShelfMonthDerived + ' кг/полку'],
   ].map(([n, v]) => `<div class="mrow"><span class="mn">${n}</span><span class="mv">${v}</span></div>`).join('');
 }
-
+ 
 function updateCapexMetrics(D) {
   const el = document.getElementById('capex-metrics');
   el.innerHTML = [
@@ -954,7 +955,7 @@ function updateCapexMetrics(D) {
     ['Амортизация (10%/год)', `<span style="font-family:var(--mono)">${fmtN(D.amortMonth)} ₽/мес</span>`],
   ].map(([n, v]) => `<div class="mrow"><span class="mn">${n}</span><span class="mv">${v}</span></div>`).join('');
 }
-
+ 
 function updateOPEXWaterfall(D) {
   const el = document.getElementById('opex-waterfall');
   const total = D.opexTotal;
@@ -968,7 +969,7 @@ function updateOPEXWaterfall(D) {
     { name: 'Удобрения (VC)', val: D.fertMonth, type: 'VC', col: '#b7e4c7' },
     { name: 'СИЗ (VC)', val: D.sizMonth, type: 'VC', col: '#d6d0c4' },
   ].filter(i => i.val > 0);
-
+ 
   el.innerHTML = items.map(i => {
     const w = Math.round(i.val / total * 100);
     return `<div class="opex-row">
@@ -981,7 +982,7 @@ function updateOPEXWaterfall(D) {
     FC (аренда): ${fmtN(D.opexFC)} ₽ · VC: ${fmtN(D.opexVC)} ₽
   </div>`;
 }
-
+ 
 function updateValidityBadge(D) {
   const checks = getValidityChecks(D);
   const s = overallStatus(checks);
@@ -991,7 +992,7 @@ function updateValidityBadge(D) {
   const msgs = { green: '✓ Модель корректна', yellow: '⚠ Отклонения от модели', red: '✗ Параметры вне модели' };
   text.textContent = msgs[s];
 }
-
+ 
 // ════════════════════════════════════════════════════════════════════
 //  CHARTS
 // ════════════════════════════════════════════════════════════════════
@@ -1005,7 +1006,7 @@ function renderActiveTabCharts(D) {
   if (id === 'cultures') { renderCulturesTable(D); renderCogsChart(D); renderMarginChart(D); }
   if (id === 'validity') { renderValidityPanel(D); }
 }
-
+ 
 function renderDonut(D) {
   const ctx = document.getElementById('opex-donut');
   if (!ctx) return;
@@ -1025,7 +1026,7 @@ function renderDonut(D) {
         tooltip: { callbacks: { label: c => `${c.label}: ${fmtN(c.raw)} ₽ (${Math.round(c.raw/D.opexTotal*100)}%)` } } } }
   });
 }
-
+ 
 function renderEbitdaLoadChart(D) {
   const ctx = document.getElementById('ebitda-load-chart');
   if (!ctx) return;
@@ -1054,15 +1055,15 @@ function renderEbitdaLoadChart(D) {
         y: { ticks: { callback: v => (v >= 0 ? '+' : '') + v + ' тыс.', font: { size: 10 } } } } }
   });
 }
-
+ 
 function renderLaunchChart(D) {
   const ctx = document.getElementById('launch-chart');
   if (!ctx) return;
   if (charts.launch) charts.launch.destroy();
-
+ 
   const schedule = MGM.launchSchedule;  // [0,0,0,0,0,0, 0.30, 0.70, 0.90, 0.90, 0.90, 0.90]
   const labels   = schedule.map((_, i) => 'М' + (i + 1));
-
+ 
   const ebitdaData = schedule.map(l => {
     const d = calc(l * 100);
     return Math.round(d.ebitdaMonth / 1000);
@@ -1077,7 +1078,7 @@ function renderLaunchChart(D) {
     // Аренда всегда платится
     return Math.round(d.opexTotal / 1000);
   });
-
+ 
   charts.launch = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -1116,7 +1117,7 @@ function renderLaunchChart(D) {
     }
   });
 }
-
+ 
 function renderOpexTable(D) {
   const vat = '⚡НДС 22%';
   const items = [
@@ -1199,7 +1200,7 @@ function renderOpexTable(D) {
     <td></td>
   </tr>`;
 }
-
+ 
 function renderFCVCChart(D) {
   const ctx = document.getElementById('fcvc-chart');
   if (!ctx) return;
@@ -1219,7 +1220,7 @@ function renderFCVCChart(D) {
     }
   });
 }
-
+ 
 function renderFOTDetail(D) {
   const el = document.getElementById('fot-detail');
   el.innerHTML = `
@@ -1233,32 +1234,32 @@ function renderFOTDetail(D) {
       <strong>Логика FC/VC:</strong> АУП — условно-постоянная (содержится даже при 0% загрузке). Операторы — переменная, масштабируется с загрузкой. Аренда — единственная строгая FC.
     </div>`;
 }
-
+ 
 function renderPaybackChart(D) {
   const ctx = document.getElementById('payback-chart');
   if (!ctx) return;
   if (charts.payback) charts.payback.destroy();
-
+ 
   // Build monthly cash flow stream:
   // Investment phase (M1–M6): -CAPEX/6 per month (plus rent always)
   // Operating phase (M7+): EBITDA per month at schedule load
   // We show 36 months (3 years) to find payback
-
+ 
   const capexTotal = D.capexTotal;
   const capexPerMonth = capexTotal / 6;  // равномерно 6 месяцев
-
+ 
   const schedule = MGM.launchSchedule;  // 12 months
   const months = 36;
   const labels = [];
   const cashFlows = [];      // monthly
   const cumulative = [];     // накопленный
-
+ 
   let cum = 0;
   let paybackMonth = null;
-
+ 
   for (let m = 0; m < months; m++) {
     labels.push('М' + (m + 1));
-
+ 
     // Load factor for this month
     let loadPct;
     if (m < schedule.length) {
@@ -1266,30 +1267,30 @@ function renderPaybackChart(D) {
     } else {
       loadPct = 90;  // после 12 мес → стабильная 90%
     }
-
+ 
     const dM = calc(loadPct);
-
+ 
     // Cash flow = EBITDA (операционный) − CAPEX если в инвест. фазе
     const capexThisMonth = m < 6 ? capexPerMonth : 0;
     const cf = dM.fcfMonth - capexThisMonth;  // FCF = EBITDA − ЕСХН − CAPEX
     cashFlows.push(Math.round(cf / 1000));
-
+ 
     cum += cf;
     cumulative.push(Math.round(cum / 1000));
-
+ 
     // Найти месяц окупаемости
     if (paybackMonth === null && cum >= 0) {
       paybackMonth = m + 1;
     }
   }
-
+ 
   // KPI-плашки
   const paybackYrs = paybackMonth ? (paybackMonth / 12).toFixed(1) : '> 3';
   const paybackLabel = paybackMonth
     ? `М${paybackMonth} (${paybackYrs} лет)`
     : '> 36 мес.';
   const irr = calcIRR(cashFlows.map(v => v * 1000), -capexTotal);
-
+ 
   const kpiEl = document.getElementById('payback-kpis');
   if (kpiEl) {
     const kpis = [
@@ -1305,7 +1306,7 @@ function renderPaybackChart(D) {
         <div style="font-size:18px;font-weight:700;color:${k.col};font-family:var(--mono)">${k.val}</div>
       </div>`).join('');
   }
-
+ 
   // Vertical annotation at payback month
   const paybackPlugin = {
     id: 'paybackLine',
@@ -1325,7 +1326,7 @@ function renderPaybackChart(D) {
       c.restore();
     }
   };
-
+ 
   charts.payback = new Chart(ctx, {
     type: 'bar',
     plugins: [paybackPlugin],
@@ -1370,7 +1371,7 @@ function renderPaybackChart(D) {
     }
   });
 }
-
+ 
 // Simplified IRR approximation (Newton method, max 50 iter)
 function calcIRR(cashflows, initialInvestment) {
   const flows = [-Math.abs(initialInvestment), ...cashflows];
@@ -1389,7 +1390,7 @@ function calcIRR(cashflows, initialInvestment) {
   }
   return null;
 }
-
+ 
 function renderHeatMatrix(D) {
   const loads = [20,30,40,50,60,70,80,85,90,100];
   const prices = [1000,1200,1400,1600,1800,2000,2500,3000,3500];
@@ -1429,7 +1430,7 @@ function renderHeatMatrix(D) {
   ].map(([bg,col,txt]) => `<span style="display:flex;align-items:center;gap:4px;font-size:11px">
     <span style="width:11px;height:11px;background:${bg};border-radius:2px;display:inline-block"></span>${txt}</span>`).join('');
 }
-
+ 
 function renderPriceChart(D) {
   const ctx = document.getElementById('price-chart');
   if (!ctx) return;
@@ -1457,7 +1458,7 @@ function renderPriceChart(D) {
         y: { ticks: { callback: v => v + ' тыс.', font: { size: 10 } } } } }
   });
 }
-
+ 
 function renderBEPScenarios(D) {
   const el = document.getElementById('bep-scenarios');
   const scenarios = [
@@ -1483,7 +1484,7 @@ function renderBEPScenarios(D) {
     </div>`;
   }).join('');
 }
-
+ 
 function renderCulturesTable(D) {
   const tb = document.getElementById('cultures-tbody');
   tb.innerHTML = CULTURES.map(c => {
@@ -1508,7 +1509,7 @@ function renderCulturesTable(D) {
     </tr>`;
   }).join('');
 }
-
+ 
 function renderCogsChart(D) {
   const ctx = document.getElementById('cogs-chart');
   if (!ctx) return;
@@ -1530,7 +1531,7 @@ function renderCogsChart(D) {
       scales: { x: { ticks: { font: { size: 10 }, maxRotation: 45 } }, y: { ticks: { callback: v => v + ' ₽', font: { size: 10 } } } } }
   });
 }
-
+ 
 function renderMarginChart(D) {
   const ctx = document.getElementById('margin-chart');
   if (!ctx) return;
@@ -1553,7 +1554,7 @@ function renderMarginChart(D) {
         y: { ticks: { callback: v => v + '%', font: { size: 10 } }, max: 80 } } }
   });
 }
-
+ 
 function renderValidityPanel(D) {
   const checks = getValidityChecks(D);
   const el = document.getElementById('validity-checks');
@@ -1569,7 +1570,7 @@ function renderValidityPanel(D) {
       </div>
     </div>`;
   }).join('') + '</div>';
-
+ 
   const tb = document.getElementById('validity-table');
   const params = [
     ['Площадь пола, м²',               P.area,        MGM.areaFloor,              5],
@@ -1594,7 +1595,7 @@ function renderValidityPanel(D) {
     </tr>`;
   }).join('');
 }
-
+ 
 // ════════════════════════════════════════════════════════════════════
 //  INPUT HANDLERS
 // ════════════════════════════════════════════════════════════════════
@@ -1617,7 +1618,7 @@ function onInput(key) {
   if (key === 'ops-sal') P.opsSal       = v('sl-ops-sal');
   renderAll();
 }
-
+ 
 function resetAll() {
   P = {
     area:        MGM.areaFloor,
@@ -1653,7 +1654,7 @@ function resetAll() {
   document.getElementById('sl-ops-sal').value  = P.opsSal;
   renderAll();
 }
-
+ 
 function switchTab(id, btn) {
   document.querySelectorAll('.ntab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -1661,7 +1662,7 @@ function switchTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
   setTimeout(() => renderActiveTabCharts(calc()), 50);
 }
-
+ 
 // ── INIT ─────────────────────────────────────────────────────────────
 renderAll();
 </script>
