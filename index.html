@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Вертикальная Ферма МГМ — Аналитический дашборд</title>
+<title>VF MGM Dashboard 2026 v3.5 — АУП: 3 чел, урожайность: 26 кг/м², семена: 300 ₽ (17.04.2026)</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -221,12 +221,12 @@ td.r{color:var(--r2)}
     <div class="pr">
       <div class="pl">
         <span style="font-weight:600;color:#166534">Урожайность, кг/м² вырщ./год</span>
-        <span class="pv" id="sv-yield" style="background:#dcfce7;color:#166534">40,8</span>
+        <span class="pv" id="sv-yield" style="background:#dcfce7;color:#166534">26,0</span>
       </div>
-      <input type="range" id="sl-yield" min="10" max="200" step="0.5" value="40.8" oninput="onInput('yield')" style="accent-color:#16a34a">
+      <input type="range" id="sl-yield" min="10" max="200" step="0.5" value="26" oninput="onInput('yield')" style="accent-color:#16a34a">
       <div class="rlab">
         <span>10</span>
-        <span style="font-size:10px;color:#16a34a;font-weight:500">МГМ: 40,8 кг/м²/год</span>
+        <span style="font-size:10px;color:#16a34a;font-weight:500">МГМ: 26 кг/м²/год</span>
         <span>200</span>
       </div>
       <div style="font-size:10.5px;color:var(--text3);margin-top:4px">
@@ -289,9 +289,9 @@ td.r{color:var(--r2)}
     <div class="sbt"><span class="sbt-dot" style="background:var(--b2)"></span>Персонал</div>
 
     <div class="pr">
-      <div class="pl"><span>АУП, чел.</span><span class="pv" id="sv-aup">8</span></div>
-      <input type="range" id="sl-aup" min="1" max="20" step="1" value="8" oninput="onInput('aup')">
-      <div class="rlab"><span>1</span><span style="font-size:10px;color:var(--text3)">Модель: 8</span><span>20</span></div>
+      <div class="pl"><span>АУП, чел.</span><span class="pv" id="sv-aup">3</span></div>
+      <input type="range" id="sl-aup" min="1" max="20" step="1" value="3" oninput="onInput('aup')">
+      <div class="rlab"><span>1</span><span style="font-size:10px;color:var(--text3)">Модель: 3</span><span>20</span></div>
     </div>
 
     <div class="pr">
@@ -320,10 +320,10 @@ td.r{color:var(--r2)}
     <div class="sbt"><span class="sbt-dot" style="background:#15803d"></span>Семена и упаковка</div>
 
     <div class="pr">
-      <div class="pl"><span>Семена+субстрат, ₽/полку/цикл С НДС 22%</span><span class="pv" id="sv-seeds">569</span></div>
-      <input type="range" id="sl-seeds" min="50" max="1500" step="10" value="568.5" oninput="onInput('seeds')">
-      <div class="rlab"><span>50</span><span style="font-size:10px;color:var(--text3)">МГМ: 568,5 ₽/полку (с НДС)</span><span>1 500</span></div>
-      <div style="font-size:10px;color:var(--text3);margin-top:2px">Диапазон по культурам: 213 (Пак-Чой) — 572 (Айсберг/Романо) ₽/полку</div>
+      <div class="pl"><span>Семена+субстрат, ₽/полку/цикл С НДС 22%</span><span class="pv" id="sv-seeds">300</span></div>
+      <input type="range" id="sl-seeds" min="50" max="1500" step="10" value="300" oninput="onInput('seeds')">
+      <div class="rlab"><span>50</span><span style="font-size:10px;color:var(--text3)">МГМ: 300 ₽/полку (с НДС)</span><span>1 500</span></div>
+      <div style="font-size:10px;color:var(--text3);margin-top:2px">Диапазон по культурам: 213 (Пак-Чой) — 300 (оптимизированно) ₽/полку</div>
     </div>
 
     <div class="pr" style="margin-bottom:0">
@@ -531,7 +531,7 @@ const MGM = {
   elecPerM2Grow:    56.8,       // кВт·ч/м² выращивания/мес
 
   // ── ФОТ ───────────────────────────────────────────────────────────
-  aupCount:         8,
+  aupCount:         3,
   aupSalaryGross:   118764,     // ₽/мес gross (без НДФЛ, без страховых)
   opsCount:         8,
   opsSalaryGross:   82756,
@@ -541,7 +541,7 @@ const MGM = {
   fertPerM2:        36.6,       // ₽/м²/мес С НДС (30 × 1.22)
   sizPerM2:         12.2,       // ₽/м²/мес С НДС (10 × 1.22)
   // Семена+субстрат С НДС 22% (базовое среднее по культурам)
-  seedsPerShelf:    568.5,      // ₽/полку/цикл С НДС (466 × 1.22)
+  seedsPerShelf:    300,        // ₽/полку/цикл С НДС (246 × 1.22)
   // Упаковка С НДС 22%
   packPerKg:        59.8,       // ₽/кг С НДС (49 × 1.22)
 
@@ -562,10 +562,9 @@ const MGM = {
   discountRate:     0.25,
 
   // ── Урожайность (базовая) ─────────────────────────────────────────
-  // 376 м² × 50% × 7 ярусов = 1 316 м² выращ.; при 90%: cap = 1316 × 40.8/12 × 0.9 ≈ 4 027 кг
-  // Подбираем так, чтобы при 1 810 полках выходило ~3 239 кг/мес (из МГМ P&L пропорционально)
-  // 1810 / 1321 × 3239 = 4436 кг/мес 100% → yieldM2year = 4436×12/1316 ≈ 40.5
-  yieldM2yearBase:  40.5,       // кг/м² выращивания/год @ 100% загрузки
+  // 376 м² × 50% × 7 ярусов = 1 316 м² выращ.; при 90%: cap = 1316 × 26/12 × 0.9 ≈ 2 566 кг
+  // База МГМ: 26 кг/м²/год (по площади выращивания, при 100% загрузке)
+  yieldM2yearBase:  26,         // кг/м² выращивания/год @ 100% загрузки
 };
 
 
@@ -713,7 +712,7 @@ function calc(overrideLoad) {
     area, tiers, growFloor, growShelves, shelves,
     cap100, capAct, loadFactor, loadPct,
     kgPerShelfMonthDerived, yieldActual,
-    capexEquip, capexDesign, capexExtra, capexTotal, amortMonth, capexPerM2grow,
+    capexEquip, capexDesign, capexExtra, capexTotal, amortMonth, capexPerM2: capexPerM2grow,
     rentMonth,
     fotAUPBase, fotOpsBase, fotOps, fotTotal,
     elecBase, elecMonth,
